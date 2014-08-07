@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=UTF-8 />
+	<title>Dynamic tile clipping and more</title>
+
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
+	
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+	<style>
+		.blur-control {
+			background-color: #fff;
+			box-shadow: rgba(0, 0, 0, 0.65) 0px 1px 5px 0px;
+		}
+		.dropdown-control {
+			box-shadow: rgba(0, 0, 0, 0.65) 0px 1px 5px 0px;
+			background-color: #fff;		
+		}
+		.dropdown-control > label {
+			background-color: #fff;
+			border-radius: 4px;
+			padding: 4px;
+			display: block;
+		}
+		.blur-control > label {
+			background-color: #fff;
+			border-radius: 4px;
+			cursor: pointer;
+			display: block;
+			padding: 4px;
+		}
+		.blur-control input {
+			vertical-align: bottom;
+		}
+	</style>
+</head>
+<body>
+	<div id="map" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+	<script src="dtc.js"></script>
+	<!--SVG filters for map container -->
+	<svg>
+		<defs>
+			<filter id="grayscale">
+				<feColorMatrix type="saturate" values="0"/>
+			</filter>
+			<filter id="saturate">
+				<feColorMatrix type="saturate" values="10"/>
+			</filter>
+			<filter id="hue_rotate">
+				<feColorMatrix type="hueRotate" values="180"/>
+			</filter>
+			<filter id="luminance_mask">
+				<feColorMatrix type="luminanceToAlpha"/>
+			</filter>
+			<filter id="sepia">
+				<feColorMatrix 
+				type="matrix" 
+				values=".343 .669 .119 0 0 
+								.249 .626 .130 0 0
+								.172 .334 .111 0 0
+								.000 .000 .000 1 0 "/>
+			</filter>			
+			<pattern id="diagonalHatch" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+				<line x1="0" y1="0" x2="0" y2="10" style="stroke:white; stroke-width:10" />
+			</pattern>
+			<pattern id="diagonalHash" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+				<g>
+					<line x1="0" y1="0" x2="0" y2="10" style="stroke:white; stroke-width:5" />
+					<line x1="5" y1="0" x2="10" y2="0" style="stroke:white; stroke-width:5" />
+				</g>
+			</pattern>		
+		</defs>
+	</svg>		
+</body>
+</html>
